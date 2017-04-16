@@ -96,6 +96,10 @@ class AcademicPeriodController extends Controller
             ]);
         }
     }
+    public function actionBlock($id)
+    {
+
+    }
 
     /**
      * Deletes an existing AcademicPeriod model.
