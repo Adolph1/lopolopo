@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'TangoPos';
+$this->title = 'SIMS';
 use yii\bootstrap\Html;
 ?>
 <div class="site-index" align="center">

@@ -10,7 +10,7 @@ use backend\models\Cart;
 use backend\models\Inventory;
 
 yiister\adminlte\assets\Asset::register($this);
-Yii::$app->language=\backend\models\Language::getDefaultLang();
+//Yii::$app->language=\backend\models\Language::getDefaultLang();
 
 ?>
 <?php $this->beginPage() ?>
@@ -19,7 +19,7 @@ Yii::$app->language=\backend\models\Language::getDefaultLang();
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html lang="<?= Yii::$app->language?>">
+<html lang="<?php // Yii::$app->language?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -75,7 +75,7 @@ desired effect
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Tango</b>POS</span>
+            <span class="logo-lg"><b>SIMS</b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -92,7 +92,7 @@ desired effect
                         <!-- Menu toggle button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-flag"></i>
-                            <?=\backend\models\Language::getDefaultLang();?>
+                            <?php //\backend\models\Language::getDefaultLang();?>
                         </a>
                         <ul class="dropdown-menu">
 
@@ -121,17 +121,17 @@ desired effect
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-shopping-cart"></i>
                             <?php
-                            $incart=Cart::find()->count();
+                            //$incart=Cart::find()->count();
                             ?>
-                            <span class="label label-success"><?= $incart;?></span>
+                            <span class="label label-success"><?php  //$incart;?></span>
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li class="header"><i class="fa fa-th text-aqua"></i> You have <?= $incart;?> products in cart</li>
+                            <li class="header"><i class="fa fa-th text-aqua"></i> You have <?php // $incart;?> products in cart</li>
                             <?php
-                            if($incart>0){
+
                                echo  '<li><div class="col-sm-12 text-center" style="padding: 10px">'.Html::a(Yii::t('app', 'View'), ['sales/create'], ['class' => 'btn btn-primary']).'</div></li>';
-                            }
+
                             ?>
 
                         </ul>
@@ -144,16 +144,16 @@ desired effect
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell"></i>
                             <?php
-                            $less=Inventory::getMinLevelCounts();
+                            //$less=Inventory::getMinLevelCounts();
                             ?>
-                            <span class="label label-warning"><?= $less;?></span>
+                            <span class="label label-warning"><?php // $less;?></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have <?= $less;?> products with minimal level stock</li>
+                            <li class="header">You have <?php // $less;?> products with minimal level stock</li>
                             <?php
-                            if($less>0){
+
                                 echo  '<li><div class="col-sm-12 text-center" style="padding: 10px">'.Html::a(Yii::t('app', 'View'), ['inventory/minlevel'], ['class' => 'btn btn-primary']).'</div></li>';
-                            }
+
                             ?>
 
                         </ul>
@@ -306,109 +306,8 @@ desired effect
                 [
                     "items" => [
                         ["label" =>Yii::t('app','Home'), "url" =>  Yii::$app->homeUrl, "icon" => "home"],
-                        [
-                            "label" => Yii::t('app','Catalog'),
-                            "url" => "#",
-                            "icon" => "fa fa-tags fa-fw",
-                            "items" => [
-                                [
-                                    "label" => Yii::t('app','Categories'),
-                                    "url" => ["/category/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                   // "badge" => "123",
-                                ],
-                                [
-                                    "label" => Yii::t('app','Products'),
-                                    "url" => ["/product/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                   // "badge" => "123",
-                                   // "badgeOptions" => [
-                                       // "class" => \yiister\adminlte\components\AdminLTE::BG_BLUE,
-                                    //],
-                                ],
-                            ],
-                        ],
-                        [
-                            'visible' => yii::$app->User->can('SalesPerson')||yii::$app->User->can('admin'),
-                            "label" => Yii::t('app','Sales'),
-                            "url" => "#",
-                            "icon" => "fa fa-cart-arrow-down",
-                            "items" => [
-                                [
-                                    "label" => "POS",
-                                    "url" =>  ["/sales/create"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                                [
-                                    "label" => "Receipts",
-                                    "url" =>  ["/sales/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                                [
-                                    "label" => "Customers",
-                                    "url" => "#",
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                            ],
-                        ],
-                        [
-                            'visible' => yii::$app->User->can('PurchasePerson')||yii::$app->User->can('admin'),
-                            "label" =>Yii::t('app','Purchases'),
-                            "url" => "#",
-                            "icon" => "fa fa-cart-plus",
-                            "items" => [
-                                [
-                                    "label" => "Batches",
-                                    "url" => ["/purchase-master/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                                [
-                                    "label" => "Invoices",
-                                    "url" => ["/purchase-invoice/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                                [
-                                    "label" => "Entries",
-                                    "url" => ["/purchase/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                                [
-                                    "label" => "Suppliers",
-                                    "url" => ["/supplier/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                                [
-                                    "label" => "Costs",
-                                    "url" => ["/purchase-cost/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                            ],
-                        ],
-                        ["label" =>Yii::t('app','Returns'), "url" =>  ["/product-return/index"], "icon" => "fa fa-refresh",],
 
-                        [
-                            'visible' => yii::$app->User->can('StockPerson')||yii::$app->User->can('admin'),
-                            "label" =>Yii::t('app','Inventory'),
-                            "url" => "#",
-                            "icon" => "fa fa-cart-plus",
-                            "items" => [
-                                [
-                                    "label" => "Current Stock",
-                                    "url" => ["/inventory/index"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                                [
-                                    "label" => "Price Maintenance",
-                                    "url" => ["/price-maintanance/create"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                                [
-                                    "label" => "Stock Adjustment",
-                                    "url" => ["/stock-adjustment/create"],
-                                    "icon" => "fa fa-angle-double-right",
-                                ],
-                            ],
-                        ],
+
                         ["label" =>Yii::t('app','Reports'), "url" =>  ["/report/index"], "icon" => "fa fa-bar-chart",],
 
                         [
@@ -418,14 +317,14 @@ desired effect
                             "items" => [
                                 [
                                     'visible' => (Yii::$app->user->identity->username == 'admin'),
-                                    "label" => Yii::t('app','Language'),
-                                    "url" => ["/language/index"],
+                                    "label" => Yii::t('app','Academic Year'),
+                                    "url" => ["/academic-year/index"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
                                 [
                                     'visible' => (Yii::$app->user->identity->username == 'admin'),
-                                    "label" => "Payment Method",
-                                    "url" =>["/payment-method/index"],
+                                    "label" => "Academic Periods",
+                                    "url" =>["/academic-period/index"],
                                     "icon" => "fa fa-angle-double-right",
                                 ],
                                 [
